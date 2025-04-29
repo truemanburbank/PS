@@ -1,13 +1,14 @@
 #include <iostream>
 #include <algorithm> // sort
-#include <vector> // stl 정렬 쓰려고
-#include <set> // multiset
+#include <vector> // stl 정렬 쓰려고 원시 배열 대신 vector
+#include <queue> // 우선 순위 큐
 
 using namespace std;
 
 int N, K;
 vector<pair<int, int>> gem; // 무게, 가격
-multiset<int> bag;
+vector<int> bag;
+
 long long ans;
 
 int main()
@@ -28,32 +29,39 @@ int main()
     {
         int c;
         cin >> c;
-        bag.insert(c); // 자동 정렬됨
+        bag.push_back(c);
     }
 
-    // 보석 가격 내림차순 정렬
-    sort(gem.begin(), gem.end(), [](auto& a, auto& b)
-    {
-        if (a.second == b.second) return a.first < b.first;
-        return a.second > b.second;
-    });
+    // 보석 무게 오름차순 정렬
+    sort(gem.begin(), gem.end());
 
-    // 가장 비싼 보석을 넣을 수 있는 최대한 딱 맞는 가방 찾기
-    for (int i = 0; i < N; i++)
-    {
-        int m = gem[i].first;
-        int v = gem[i].second;
+    // 가방 무게 오름차순 정렬
+    sort(bag.begin(), bag.end());
 
-        // 이 보석을 담을 수 있는 가장 작은 가방 찾기
-        auto it = bag.lower_bound(m);
-        if (it != bag.end())
+    priority_queue<int> pq; // 가격 기준 max heap
+    int gem_i = 0; // 보석 인덱스
+
+    // 가방을 기준으로 어떤 보석을 담을지
+    for (int bag_i = 0; bag_i < K; bag_i++)
+    {
+        int bagWeight = bag[bag_i];
+
+        // 현재 가방에 담을 수 있는 보석들을 모두 pq에 넣음
+        // 자동 정렬 됨
+        while (gem_i < N && gem[gem_i].first <= bagWeight) 
         {
-            ans += v;
-            bag.erase(it); // 사용한 가방 제거
+            pq.push(gem[gem_i].second); // 가격만 넣음
+            gem_i++;
+        }
+
+        // 가장 비싼 보석을 선택
+        if (!pq.empty()) {
+            ans += pq.top();
+            pq.pop();
         }
     }
 
-    cout << ans;
+    std::cout << ans;
 
     return 0;
 }
