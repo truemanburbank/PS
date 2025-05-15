@@ -1,7 +1,6 @@
 #include <string>
 #include <vector>
 #include <stack> 
-#include<list>
 using namespace std;
 
 // n이 100만 
@@ -11,12 +10,12 @@ using namespace std;
 // 100만 * 20만은 시간 초과
 
 // 삭제된 것을 어떻게 효율적으로 확인하는가? 
-// 연결리스트 방법으로! 직접 구현하거나 list 사용
+// 연결리스트 방법으로!
 
-string solution(int n, int k, vector<string> cmd) 
+string solution(int n, int k, vector<string> cmd)
 {
-    vector<int> prev(n + 1);
-    vector<int> next(n + 1);
+    vector<int> prev(n);
+    vector<int> next(n);
     stack<int> deleted;
 
     for (int i = 0; i < n; i++)
@@ -34,7 +33,7 @@ string solution(int n, int k, vector<string> cmd)
         if (str[0] == 'C')
         {
             deleted.push(cur);
-            
+
             // 연결리스트 방식
             if (prev[cur] != -1) next[prev[cur]] = next[cur];
             if (next[cur] != n) prev[next[cur]] = prev[cur];
