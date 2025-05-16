@@ -34,8 +34,6 @@ vector<int> solution(vector<int> progresses, vector<int> speeds) {
     }
 
     // 마지막으로 카운트된 작업 합함
-    // 왜냐하면 위 for문에서 'else'에서만 answer에 push하고 있으므로 
-    // 마지막 원소 순회가 if (priorWork >= left[i])로 들어갔다면 answer에 값을 추가하지 않기 때문
     answer.push_back(ret);
 
     return answer;
