@@ -29,11 +29,11 @@ vector<string> solution(vector<string> record) {
 
     for (int i = 0; i < record.size(); i++)
     {
-        string command, uid, name;
+        string command, uid;
 
         // 공백을 기준으로 문자열 자르기
         stringstream ss(record[i]);
-        ss >> command >> uid >> name;
+        ss >> command >> uid;
 
         if (command == "Enter")
         {
