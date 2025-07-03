@@ -45,6 +45,23 @@ void Solve(int remainingArrow, int k, const vector<int>& apeach)
             maxScoreDiff = scoreDiff;
             answer = rion;
         }
+        else if (scoreDiff > 0 && maxScoreDiff == scoreDiff)
+        {
+            // 조건: 낮은 점수 더 많이 맞힌 경우를 우선
+            for (int i = 10; i >= 0; --i) 
+            {
+                if (rion[i] > answer[i]) 
+                {
+                    answer = rion;
+                    break;
+                }
+                else if (rion[i] < answer[i]) 
+                {
+                    break;
+                }
+            }
+        }
+
         rion[10] = 0; // 복구
         return;
     }
