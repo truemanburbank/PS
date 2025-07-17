@@ -17,7 +17,7 @@ using namespace std;
 vector<int> solution(int brown, int yellow)
 {
     // 두 근의 합
-    int b = (-1) * (((brown - 4) / 2) + 4);
+    int b = -(((brown - 4) / 2) + 4);
 
     // 두 근의 곱
     int c = brown + yellow;
@@ -27,8 +27,8 @@ vector<int> solution(int brown, int yellow)
     int sqrtD = sqrt(b * b - 4 * c);
 
     // 문제에서 w >= h이므로.
-    int w = ((-1) * b + sqrtD) / 2;
-    int h = ((-1) * b - sqrtD) / 2;
+    int w = (-b + sqrtD) / 2;
+    int h = (-b - sqrtD) / 2;
     
     return { w, h };
 }
